@@ -71,4 +71,4 @@ learn.fit_one_cycle(3,max_lr=1e-02,pct_start=0.3,moms=(0.8,0.7))
 Requirement: fastai version 1.0.51 (including pytorch 1.0). Visit [https://github.com/fastai/fastai#installation](https://github.com/fastai/fastai#installation) for more.
 
 
-Any feedback is welcome! Follow the discussion on fastai forums: [?](?)
+Any feedback is welcome! Follow the discussion on fastai forums: [https://forums.fast.ai/t/build-mixed-databunch-and-train-end-to-end-model-for-tabular-categorical-continuous-data-and-text-data/](https://forums.fast.ai/t/build-mixed-databunch-and-train-end-to-end-model-for-tabular-categorical-continuous-data-and-text-data/)
