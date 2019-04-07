@@ -15,7 +15,7 @@ The entire source code is in [fastai_tab_text.py](fastai_tab_text.py). You can c
 
 - Example of creating TabularText databunch from pandas Dataframe (using Mercari dataset)
 
-```
+```python
 cat_names=['category1','category2','category3','brand_name','shipping'] # categorical
 cont_names= list(set(train_df.columns) - set(cat_names) - {'price','text'}) # continuous
 dep_var = 'price' # label
@@ -34,7 +34,7 @@ def get_tabulartext_databunch(bs=100,val_idxs=val_idxs,path=mercari_path):
 
 data = get_tabulartext_databunch(bs=100)
 data.show_batch()
-```python
+```
 
 - Example of creating TabularText learner and start one-cycle training (note: this is a regression problem)
 
