@@ -34,11 +34,11 @@ def get_tabulartext_databunch(bs=100,val_idxs=val_idxs,path=mercari_path):
 
 data = get_tabulartext_databunch(bs=100)
 data.show_batch()
-```
+```python
 
 - Example of creating TabularText learner and start one-cycle training (note: this is a regression problem)
 
-```
+```python
 encoder_name = 'bs60-awdlstm-enc-stage2' # encoder from mercari-language-model notebook
 def get_tabulartext_learner(data,params):
     learn= tabtext_learner(data,AWD_LSTM,metrics=[root_mean_squared_error],
