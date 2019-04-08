@@ -220,13 +220,16 @@ class TabularTextList(TabularList):
         display(HTML('TEXT:<br>'))        
         names = ['text', 'target']
         items = []
+        max_len = 70
         for i, (x,y) in enumerate(zip(xs,ys)):
-            res = []
-            res.append(' '.join([ f'{tok}({self.vocab.stoi[tok]})' 
-                              for tok in x.text.split() if (not self.vocab.stoi[tok] == self.pad_idx) ]))
+            txt_x = x.text
+            items.append([txt_x, y])
+#             res = []
+#             res.append(' '.join([ f'{tok}({self.vocab.stoi[tok]})' 
+#                               for tok in x.text.split() if (not self.vocab.stoi[tok] == self.pad_idx) ]))
                 
-            res.append(str(y))
-            items.append(res)
+#             res.append(str(y))
+#             items.append(res)
 
         items = np.array(items)
         df = pd.DataFrame({n:items[:,i] for i,n in enumerate(names)})
