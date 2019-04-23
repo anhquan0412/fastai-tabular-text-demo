@@ -72,38 +72,41 @@ class TabularTextProcessor(TabularProcessor):
         # Source: fastai.text.data.NumericalizeProcessor
         vocab = ifnone(vocab, ds.vocab if ds is not None else None)
         self.vocab, self.max_vocab, self.min_freq = vocab, max_vocab, min_freq
+
+        # add text_cols property
+        self.text_cols = ds.text_cols
         
     # process a single item in a dataset
     # NOTE: THIS IS METHOD HAS NOT BEEN TESTED AT THIS POINT (WILL COVER IN A FUTURE ARTICLE)
     def process_one(self, item):
-#         # process tabular data (copied form tabular.data)
-#         df = pd.DataFrame([item, item])
-#         for proc in self.procs: proc(df, test=True)
+        # process tabular data (copied form tabular.data)
+        df = pd.DataFrame([item, item])
+        for proc in self.procs: proc(df, test=True)
             
-#         if len(self.cat_names) != 0:
-#             codes = np.stack([c.cat.codes.values for n,c in df[self.cat_names].items()], 1).astype(np.int64) + 1
-#         else: 
-#             codes = [[]]
+        if len(self.cat_names) != 0:
+            codes = np.stack([c.cat.codes.values for n,c in df[self.cat_names].items()], 1).astype(np.int64) + 1
+        else: 
+            codes = [[]]
             
-#         if len(self.cont_names) != 0:
-#             conts = np.stack([c.astype('float32').values for n,c in df[self.cont_names].items()], 1)
-#         else: 
-#             conts = [[]]
+        if len(self.cont_names) != 0:
+            conts = np.stack([c.astype('float32').values for n,c in df[self.cont_names].items()], 1)
+        else: 
+            conts = [[]]
             
-#         classes = None
-#         col_names = list(df[self.cat_names].columns.values) + list(df[self.cont_names].columns.values)
+        classes = None
+        col_names = list(df[self.cat_names].columns.values) + list(df[self.cont_names].columns.values)
         
-#         # process textual data
-#         if len(self.text_cols) != 0:
-#             txt = _join_texts(df[self.text_cols].values, (len(self.text_cols) > 1))
-#             txt_toks = self.tokenizer._process_all_1(txt)[0]
-#             text_ids = np.array(self.vocab.numericalize(txt_toks), dtype=np.int64)
-#         else:
-#             txt_toks, text_ids = None, [[]]
+        # process textual data
+        if len(self.text_cols) != 0:
+            txt = text.data._join_texts(df[self.text_cols].values, (len(self.text_cols) > 1))
+            txt_toks = self.tokenizer._process_all_1(txt)[0]
+            text_ids = np.array(self.vocab.numericalize(txt_toks), dtype=np.int64)
+        else:
+            txt_toks, text_ids = None, [[]]
             
-#         # return ItemBase
-#         return MixedTabularLine(codes[0], conts[0], classes, col_names, text_ids, self.txt_cols, txt_toks)
-        pass
+        # return ItemBase
+        return TabularText(codes[0], conts[0], classes, col_names, text_ids, self.text_cols, txt_toks)
+    
     # processes the entire dataset
     def process(self, ds):
         '''
