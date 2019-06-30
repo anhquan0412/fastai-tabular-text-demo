@@ -1,5 +1,15 @@
 # Demo for fastai tabular + text databunch with end-to-end classification/regression training
 
+UPDATED: There is a FASTER way to create/train an end-to-end tabular + text regression WITH BETTER LOSS using an entirely different approach (should work with both classification and regression task)
+
+This approach uses existing tabular databunch and text databunch along with tabular model and text model (AWD_LSTM), thus shorter to implement. And all of these are already in Fastai library; this implementation will be less prone to error, and will be up-to-date. You can follow the discussion on [fastai forum](https://forums.fast.ai/t/build-mixed-databunch-and-train-end-to-end-model-for-tabular-categorical-continuous-data-and-text-data/)
+
+Main notebook for this approach is in [fastai_tabtext2.py](fastai_tabtext2.py) and [this notebook](mercari-tabular-text-version-2-complete.ipynb). Dataset is from [Mercari Price Kaggle competition](https://www.kaggle.com/c/mercari-price-suggestion-challenge) 
+
+If you still want to learn about Fastai Datablock API (it can be helpful if you want to create your own data API that is different from tabular or text), you can take a look at all the materials below.
+
+------------------------------------------------------
+
 Inspired by Wayde Gilliam for his [detailed blog post on Fastai Datablock API](https://blog.usejournal.com/finding-data-block-nirvana-a-journey-through-the-fastai-data-block-api-c38210537fe4).
 
 - Including several new TabularText classes (inherited from ItemLists, LabelLists and DataBunch) to handle both tabular data (continuous and categorical) and textual data (to be converted to numerical ids). All the preprocesses from tabular processor (FillMissing, Categorify, Normalize) and text processor (Tokenizer and Numericalize) are included.
